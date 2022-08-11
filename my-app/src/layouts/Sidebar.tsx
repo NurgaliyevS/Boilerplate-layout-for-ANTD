@@ -1,42 +1,44 @@
-import { Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import type { MenuProps } from 'antd/es/menu';
+import {
+  LaptopOutlined,
+  NotificationOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 
-import { UserOutlined } from '@ant-design/icons';
+const { Sider } = Layout;
 
-type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(
-  label: React.ReactNode,
-  key?: React.Key | null,
-  icon?: React.ReactNode,
-  children?: MenuItem[]
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
+const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
+  (icon, index) => {
+    const key = String(index + 1);
+    return {
+      key: `sub${key}`,
+      icon: React.createElement(icon),
+      label: `subnav ${key}`,
+      children: new Array(4).fill(null).map((_, j) => {
+        const subKey = index * 4 + j + 1;
+        return {
+          key: subKey,
+          label: `option${subKey}`,
+        };
+      }),
+    };
+  }
+);
 
 function Sidebar() {
-  const items: MenuItem[] = [
-    getItem(
-      <NavLink to='/cabinet'>Personal account</NavLink>,
-      'cabinet',
-      <UserOutlined style={{ fontSize: '16px' }} />
-    ),
-  ];
-
   return (
-    <div className='sidebar'>
-      <h1 className='sidebar__logo'>
-        <Link to='/'>Platform Confectioners</Link>
-      </h1>
-      <Menu style={{ fontSize: 16 }} items={items} theme='light' />
-    </div>
+    <Sider className='site-layout-background' width={200}>
+      <Menu
+        mode='inline'
+        defaultSelectedKeys={['1']}
+        defaultOpenKeys={['sub1']}
+        style={{
+          height: '100%',
+        }}
+        items={items2}
+      />
+    </Sider>
   );
 }
 

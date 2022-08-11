@@ -1,34 +1,48 @@
-import { Outlet } from 'react-router-dom';
+import React from 'react';
+import 'antd/dist/antd.css';
+import { Breadcrumb, Layout } from 'antd';
 
-import { Layout, BackTop } from 'antd';
-import Sider from 'antd/lib/layout/Sider';
-import { UpOutlined } from '@ant-design/icons';
-
-import Sidebar from './Sidebar';
+import './PageLayout.scss';
 import Pageheader from './Pageheader';
+import Sidebar from './Sidebar';
+
+const { Content, Footer } = Layout;
 
 export default function PageLayout() {
   return (
-    <Layout className='page-app'>
-      <Sider
-        breakpoint='md'
-        collapsedWidth='0'
-        width={228}
-        style={{ background: '#fff' }}
+    <Layout>
+      <Pageheader />
+
+      <Content
+        style={{
+          padding: '0 50px',
+        }}
       >
-        <Sidebar />
-      </Sider>
-      <Layout>
-        <Pageheader />
-        <Layout>
-          <Outlet />
+        <Breadcrumb
+          style={{
+            margin: '16px 0',
+          }}
+        >
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>List</Breadcrumb.Item>
+          <Breadcrumb.Item>App</Breadcrumb.Item>
+        </Breadcrumb>
+
+        <Layout
+          className='site-layout-background'
+          style={{
+            padding: '24px 0',
+          }}
+        >
+          <Sidebar />
         </Layout>
-      </Layout>
-      <BackTop>
-        <div className='back-top'>
-          <UpOutlined />
-        </div>
-      </BackTop>
+      </Content>
+
+      <Footer
+        style={{
+          textAlign: 'center',
+        }}
+      ></Footer>
     </Layout>
   );
 }

@@ -1,16 +1,25 @@
-import { Layout } from 'antd';
 import React from 'react';
+
+import { Layout, Menu } from 'antd';
+import './Pageheader.scss';
 
 const { Header } = Layout;
 
+const items1 = ['1', '2', '3'].map((key) => ({
+  key,
+  label: `nav ${key}`,
+}));
+
 function Pageheader() {
   return (
-    <Header className='page-header'>
-      <ul className='page-header__nav'>
-        <li className='page-header__nav-item' key='1'>
-          <span>About site</span>
-        </li>
-      </ul>
+    <Header className='header'>
+      <div className='logo' />
+      <Menu
+        theme='dark'
+        mode='horizontal'
+        defaultSelectedKeys={['2']}
+        items={items1}
+      />
     </Header>
   );
 }
